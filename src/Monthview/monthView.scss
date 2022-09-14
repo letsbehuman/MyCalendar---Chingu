@@ -1,0 +1,65 @@
+.monthView-container {
+  border: solid 2px red;
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  padding: 1em;
+  gap: 0.5em;
+  align-items: center;
+}
+.monthView__title {
+  grid-column: 2/3;
+}
+.monthView__year {
+  grid-column: 3/4;
+}
+.display {
+  background-color: antiquewhite;
+  grid-column: 2/4;
+  display: flex;
+  flex-direction: column;
+  .months {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 1em;
+  }
+  .weekdays {
+    justify-content: space-between;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 0.8em;
+    text-align: center;
+  }
+  .month-days {
+    display: grid;
+    grid-template-columns: repeat(7, auto);
+    height: auto;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 1em;
+    padding: 1em 0;
+    .card-day {
+      padding: 0.1em;
+      margin-inline: auto;
+      text-align: center;
+      border: solid 1px black;
+    }
+    .selected-day {
+      background-color: aquamarine;
+    }
+  }
+}
+.display__btn {
+  border: none;
+}
+.next-btn {
+  display: flex;
+  grid-column: 4/5;
+  grid-row: 2/3;
+  justify-self: center;
+}
+.prev-btn {
+  grid-column: 1/2;
+  grid-row: 2/3;
+}
