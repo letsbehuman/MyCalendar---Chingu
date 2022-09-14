@@ -1,3 +1,8 @@
+$color-blue-800: #2c3639;
+$color-blue-600: #3f4e4f;
+$color-brown: #a27b5c;
+$color-beige: #dcd7c9;
+
 * {
   margin: 0;
   padding: 0;
@@ -8,4 +13,28 @@
   display: flex;
   flex-direction: column;
   width: 100%;
+  background-image: url('https://img.freepik.com/free-vector/low-poly-white-background-design_1017-33204.jpg?w=2000');
+  background-size: cover;
+  padding: 1em 0;
+  min-height: 100vh;
+}
+.modal {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-color: rgba($color: #000000, $alpha: 0.7);
+  z-index: 50;
+  padding: 2em;
+}
+.form-container {
+  position: relative;
+  width: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: $color-beige;
+  padding: 1em;
+  border-radius: 1em;
 }

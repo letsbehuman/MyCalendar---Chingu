@@ -1,17 +1,12 @@
 import dayjs from 'dayjs';
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import './monthView.scss';
+import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 
 const MonthView = ({ currentTime, selectedDate, setSelectedDate }) => {
-  const [currentMonth, setCurrentMonth] = useState([]);
-
-  useEffect(() => {}, [selectedDate]);
-
   const selectDay = (e) => {
     const { numMonth, year } = currentTime;
     const day = e.target.innerHTML;
-    // console.log(numMonth, year, day);
-    // console.log(dayjs(`${year}-${numMonth}-${day}`));
     setSelectedDate(dayjs(`${year}-${numMonth}-${day}`));
   };
 
@@ -32,16 +27,12 @@ const MonthView = ({ currentTime, selectedDate, setSelectedDate }) => {
       (curr, i) => i + 1
     ).slice(-firstDayMonth);
 
-    // console.log('firsrday:', firstDayMonth, 'prevMonth:', prevMonthDays);
-
     //Getting the rest days to sum 42 from prevMonth and currMonth
 
     const lastDays =
-      prevMonthDays.length < 6
+      prevMonthDays.length < 7
         ? 42 - prevMonthDays.length - currMonthDays.length
         : 42 - currMonthDays.length;
-
-    console.log(lastDays);
 
     //Creating a new array with the first days of the nextMonth
     const nextMonthDays = Array.from(
@@ -50,47 +41,53 @@ const MonthView = ({ currentTime, selectedDate, setSelectedDate }) => {
       },
       (curr, i) => i + 1
     ).slice(0, lastDays);
-    //Joining all arrays
-    const matchingDate =
-      prevMonthDays.length < 6
-        ? [...prevMonthDays, ...currMonthDays, ...nextMonthDays]
-        : [...currMonthDays, ...nextMonthDays];
-    // const matchingDate = [...prevMonthDays, ...currMonthDays, ...nextMonthDays];
     //Displaying the results
-    return matchingDate.map((day, index) => (
-      <div
-        key={index}
-        className={
-          currentTime.day == day ? 'selected-day card-day' : 'card-day'
-        }
-        onClick={(e) => {
-          selectDay(e);
-        }}
-      >
-        {day}
+    return (
+      <div className="month-days">
+        {prevMonthDays.length < 7 &&
+          prevMonthDays.map((day, index) => (
+            <div
+              key={index}
+              onClick={() => setMonthBtn('prev')}
+              className="non-current-month"
+            >
+              {day}
+            </div>
+          ))}
+        {currMonthDays.map((day, index) => (
+          <div
+            key={index}
+            id={index}
+            className={
+              currentTime.day == day ? 'selected-day card-day' : 'card-day'
+            }
+            onClick={(e) => {
+              selectDay(e);
+            }}
+          >
+            {day}
+          </div>
+        ))}
+        {nextMonthDays.map((day, index) => (
+          <div
+            key={index}
+            onClick={() => setMonthBtn('next')}
+            className="non-current-month"
+          >
+            {day}
+          </div>
+        ))}
       </div>
-    ));
+    );
   };
-  let countPrevMonth = 0;
-  let countNextMonth = 0;
 
-  const countHandler = (str) => {
-    if (str === 'next') {
-      countNextMonth += 1;
-      countPrevMonth = 0;
-    }
-    if (str === 'prev') {
-      countNextMonth = 0;
-      countPrevMonth += 1;
-    }
-  };
   const setMonthBtn = (str) => {
     const { year, day, prevMonth, nextMonth } = currentTime;
     if (str === 'next') {
-      setSelectedDate(dayjs(`${year}-${prevMonth}-${day}`));
+      setSelectedDate(dayjs(`${year}-${nextMonth}-${day}`));
     }
     if (str === 'prev') {
-      setSelectedDate(dayjs(`${year}-${nextMonth}-${day}`));
+      setSelectedDate(dayjs(`${year}-${prevMonth}-${day}`));
     }
   };
 
@@ -102,14 +99,23 @@ const MonthView = ({ currentTime, selectedDate, setSelectedDate }) => {
         className="display__btn prev-btn"
         onClick={() => setMonthBtn('prev')}
       >
-        {' '}
-        prev{' '}
+        <IoIosArrowBack />
       </button>
       <div className="display">
         <div className="months">
-          <button className="prev-month">{currentTime.prevMonth}</button>
+          <button
+            className="non-current-month"
+            onClick={() => setMonthBtn('prev')}
+          >
+            {currentTime.prevMonth}
+          </button>
           <button className="current-month">{currentTime.month}</button>
-          <button className="next-month">{currentTime.nextMonth}</button>
+          <button
+            className="non-current-month"
+            onClick={() => setMonthBtn('next')}
+          >
+            {currentTime.nextMonth}
+          </button>
         </div>
         <div className="weekdays">
           <div className="weekday">SUN</div>
@@ -120,23 +126,16 @@ const MonthView = ({ currentTime, selectedDate, setSelectedDate }) => {
           <div className="weekday">FRI</div>
           <div className="weekday">SAT</div>
         </div>
-        <div className="month-days">{displayDays(currentTime)}</div>
+        <div className="">{displayDays(currentTime)}</div>
       </div>
       <button
         className="display__btn next-btn"
         onClick={() => setMonthBtn('next')}
       >
-        next
+        <IoIosArrowForward />
       </button>
     </div>
   );
 };
-
-/* 
-to get days of current month
-chech weekday and place it in currespond weekday
-display 42 days
-
-*/
 
 export default MonthView;

@@ -6,30 +6,12 @@ import dayjs from 'dayjs';
 import AddAppointment from './AddAppointment/AddAppointment';
 
 function App() {
-  // const [selectedDate, setSelectedDate] = useState({
-  //   day: '',
-  //   weekday: '',
-  //   month: '',
-  //   prevMonth: '',
-  //   nextMonth: '',
-  //   totalDays: '',
-  //   year: '',
-  // });
-
   const [selectedDate, setSelectedDate] = useState(dayjs());
-
+  const [newAppointment, setNewAppointment] = useState([]);
   const [showModal, setShowModal] = useState(false);
-  useEffect(() => {
-    // setSelectedDate({
-    //   day: currentTime.day,
-    //   weekday: currentTime.numDay,
-    //   month: currentTime.month,
-    //   totalDays: currentTime.totalDays,
-    //   year: currentTime.year,
-    // });
-  }, []);
+  useEffect(() => {}, [newAppointment]);
 
-  // console.log('app', selectedDate);
+  console.log('app', newAppointment);
 
   const currentTime = {
     fullDate: dayjs(selectedDate).format('DD/MM/YYYY'),
@@ -39,13 +21,16 @@ function App() {
     totalDays: dayjs(selectedDate).daysInMonth(),
     month: dayjs(selectedDate).format('MMM'),
     numMonth: dayjs(selectedDate).format('M'),
-    prevMonth: dayjs(selectedDate).add(1, 'month').format('MMM'),
-    nextMonth: dayjs(selectedDate).subtract(1, 'month').format('MMM'),
+    nextMonth: dayjs(selectedDate).add(1, 'month').format('MMM'),
+    prevMonth: dayjs(selectedDate).subtract(1, 'month').format('MMM'),
     fullMonth: dayjs(selectedDate).format('MMMM'),
     year: dayjs(selectedDate).year(),
-    // firstDayMonth: dayjs(`${currentTime.year}-${currentTime.numMonth}-1`),
   };
   // console.log(currentTime);
+  const modalHandle = () => {
+    setShowModal(!showModal);
+  };
+
   return (
     <div className="App">
       <MonthView
@@ -55,12 +40,21 @@ function App() {
       />
       <DayView
         currentTime={currentTime}
-        selectedDate={selectedDate}
-        setSelectedDate={setSelectedDate}
-        showModal={showModal}
-        setShowModal={setShowModal}
+        modalHandle={modalHandle}
+        newAppointment={newAppointment}
       />
-      {showModal && <AddAppointment selectedDay={selectedDate} />}
+      {showModal && (
+        <div className="modal" onClick={modalHandle}>
+          <div className="form-container" onClick={(e) => e.stopPropagation()}>
+            <AddAppointment
+              modalHandle={modalHandle}
+              setNewAppointment={setNewAppointment}
+              newAppointment={newAppointment}
+              selectedDay={selectedDate}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
