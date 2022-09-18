@@ -1,22 +1,18 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
+import AppContext from '../context/AppContext';
 import { TbCalendarPlus } from 'react-icons/tb';
 import './dayView.scss';
 
-const DayView = ({ currentTime, modalHandle, newAppointment }) => {
-  console.log(
-    newAppointment.map((appointment, index) => {
-      return appointment;
-    })
-  );
-
+const DayView = ({ modalHandle }) => {
+  const { currentTime, dayEvents } = useContext(AppContext);
   return (
     <div className="dayView-container">
       <h3>{currentTime.weekday}</h3>
       <h3>{`${currentTime.fullMonth} ${currentTime.day}`}</h3>
       <div className="appointments-container">
-        {!newAppointment.length
+        {/* {!dayEvents.length
           ? 'No appointments'
-          : newAppointment.map((appointment, index) => {
+          : dayEvents.map((event, index) => {
               const {
                 title,
                 startDate,
@@ -26,22 +22,20 @@ const DayView = ({ currentTime, modalHandle, newAppointment }) => {
                 people,
                 location,
                 description,
-              } = appointment;
+              } = event;
               return (
                 <div key={index} className="appointment-content">
-                  <div>{`${begins} ${title} with ${people} at ${location}. ${description}`}</div>
-
-                  {/* <div>{begins}</div>
-                  <div>{title}</div>
-                  <div>{startDate}</div>
-                  <div>{endDate}</div>
-                  <div>{ends}</div> 
-                  <div>{people}</div>
-                  <div>{location}</div>
-                  <div>{description}</div> */}
+                  <span>{begins}</span>
+                  <span>{title}</span>
+                  <span>{startDate}</span>
+                  <span>{endDate}</span>
+                  <span>{ends}</span>
+                  <span>{people}</span>
+                  <span>{location}</span>
+                  <span>{description}</span>
                 </div>
               );
-            })}
+            })} */}
       </div>
       <button className="add-appointment" onClick={() => modalHandle()}>
         <TbCalendarPlus />

@@ -1,12 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import AppContext from '../context/AppContext';
 import './addAppointment.scss';
 
-const AddAppointment = ({
-  selectedDay,
-  setNewAppointment,
-  modalHandle,
-  newAppointment,
-}) => {
+const AddAppointment = ({ modalHandle }) => {
+  const { selectedDate, dispachCalEvent } = useContext(AppContext);
+
   const [formData, setFormData] = useState([
     {
       title: '',
@@ -21,13 +19,20 @@ const AddAppointment = ({
   ]);
 
   const onSubmitHandle = (e) => {
-    const appointmentsArray = [];
     e.preventDefault();
-    setNewAppointment((prevNewAppointments) => [
-      ...prevNewAppointments,
-      formData,
-    ]);
-
+    const calendarEvent = {
+      id: Date.now(),
+      title: formData.title,
+      startDate: formData.startDate,
+      endDate: formData.endDate,
+      begins: formData.begins,
+      ends: formData.ends,
+      people: formData.people,
+      location: formData.location,
+      description: formData.description,
+      day: selectedDate.valueOf(),
+    };
+    dispachCalEvent({ type: 'push', payload: calendarEvent });
     modalHandle();
   };
 
@@ -36,7 +41,6 @@ const AddAppointment = ({
     setFormData((prevFormData) => {
       return {
         ...prevFormData,
-        startDate: selectedDay.format('DD/MM/YYYY'),
         [name]: value,
       };
     });
@@ -52,9 +56,14 @@ const AddAppointment = ({
         placeholder="Event title"
         onChange={(e) => onChangeHandle(e)}
         className="input-long"
+        required
       ></input>
       <label className="label">Start date:</label>
-      <div>{selectedDay.format('DD/MM/YYYY')}</div>
+      <input
+        type="text"
+        defaultValue={selectedDate.format('MM/DD/YYYY')}
+        required
+      ></input>
       <label className="end-date">End date:</label>
       <input
         type="date"
@@ -70,6 +79,7 @@ const AddAppointment = ({
         value={formData.begins}
         name="begins"
         onChange={(e) => onChangeHandle(e)}
+        required
       ></input>
       <label className="ends">Ends:</label>
       <input
@@ -106,7 +116,7 @@ const AddAppointment = ({
         onChange={(e) => onChangeHandle(e)}
         className="input-long"
       ></input>
-      <button onClick={(e) => onSubmitHandle(e)}>Add Event</button>
+      <button type="submit">Add Event</button>
     </form>
   );
 };

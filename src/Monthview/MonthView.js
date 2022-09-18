@@ -1,14 +1,12 @@
 import dayjs from 'dayjs';
-import React from 'react';
+import React, { useContext, useState } from 'react';
+import AppContext from '../context/AppContext';
 import './monthView.scss';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
+import Day from './Day';
 
-const MonthView = ({ currentTime, selectedDate, setSelectedDate }) => {
-  const selectDay = (e) => {
-    const { numMonth, year } = currentTime;
-    const day = e.target.innerHTML;
-    setSelectedDate(dayjs(`${year}-${numMonth}-${day}`));
-  };
+const MonthView = ({}) => {
+  const { currentTime, selectedDate, setSelectedDate } = useContext(AppContext);
 
   const displayDays = (date) => {
     //display 42 days
@@ -28,7 +26,6 @@ const MonthView = ({ currentTime, selectedDate, setSelectedDate }) => {
     ).slice(-firstDayMonth);
 
     //Getting the rest days to sum 42 from prevMonth and currMonth
-
     const lastDays =
       prevMonthDays.length < 7
         ? 42 - prevMonthDays.length - currMonthDays.length
@@ -55,23 +52,14 @@ const MonthView = ({ currentTime, selectedDate, setSelectedDate }) => {
             </div>
           ))}
         {currMonthDays.map((day, index) => (
-          <div
-            key={index}
-            id={index}
-            className={
-              currentTime.day == day ? 'selected-day card-day' : 'card-day'
-            }
-            onClick={(e) => {
-              selectDay(e);
-            }}
-          >
-            {day}
-          </div>
+          <React.Fragment key={index}>
+            <Day day={day} />
+          </React.Fragment>
         ))}
         {nextMonthDays.map((day, index) => (
           <div
             key={index}
-            onClick={() => setMonthBtn('next')}
+            onClick={() => setMonthBtn('prev')}
             className="non-current-month"
           >
             {day}

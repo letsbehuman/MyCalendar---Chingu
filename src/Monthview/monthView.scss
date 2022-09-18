@@ -28,6 +28,7 @@
     padding: 0.5em 2em;
     background-color: rgba($color: $color-blue-600, $alpha: 0.2);
     box-shadow: 0px 1px 2px rgba($color: #000000, $alpha: 0.2);
+    margin-bottom: 1em;
     button {
       border: none;
       padding: 0.4em;
@@ -36,48 +37,51 @@
       background-color: transparent;
     }
   }
+}
 
-  .weekdays {
-    justify-content: space-between;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    padding: 0 1em;
-    text-align: center;
-    color: $color-brown;
-    font-weight: 400;
-    font-size: 0.9rem;
-  }
-  .month-days {
-    background-color: rgba($color: $color-blue-800, $alpha: 0.5);
-    border-radius: 1em;
-    display: grid;
-    grid-template-columns: repeat(7, auto);
-    height: auto;
-    justify-content: space-evenly;
-    align-items: center;
-    gap: 1em;
-    padding: 1em;
-    color: $color-beige;
-    .card-day {
-      padding: 0.1em;
-      margin-inline: auto;
-      text-align: center;
-    }
-    .selected-day {
-      border-radius: 25%;
-      padding: 0.2em;
-      color: $color-blue-800;
-      background-color: $color-beige;
-    }
-  }
-  .current-month {
-    color: $color-blue-800;
-    font-size: 1.3rem;
-  }
-  .non-current-month {
-    color: rgba($color: $color-blue-800, $alpha: 0.7);
-  }
+.weekdays {
+  justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  padding: 0 1em;
+  text-align: center;
+  color: $color-brown;
+  font-weight: 400;
+  font-size: 0.9rem;
+}
+.month-days {
+  background-color: rgba($color: $color-blue-800, $alpha: 0.5);
+  border-radius: 1em;
+  display: grid;
+  grid-template-columns: repeat(7, auto);
+  height: auto;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 1em;
+  padding: 1em;
+  color: $color-beige;
+}
+.current-month {
+  color: $color-blue-800;
+  font-size: 1.3rem;
+}
+.non-current-month {
+  cursor: pointer;
+  color: rgba($color: $color-blue-800, $alpha: 0.7);
+}
+.card-day {
+  padding: 0.1em;
+  margin-inline: auto;
+  text-align: center;
+  cursor: pointer;
+  height: 2em;
+}
+.selected-day {
+  border-radius: 25%;
+  padding: 0.2em;
+  color: $color-blue-800;
+  background-color: $color-beige;
 }
 .display__btn {
   border: none;
@@ -86,6 +90,13 @@
   background-color: $color-blue-600;
   color: $color-beige;
   font-size: 1rem;
+  cursor: pointer;
+}
+.appointment {
+  color: $color-beige;
+  font-weight: 900;
+  margin: 0;
+  font-size: 1.5em;
 }
 .next-btn {
   display: flex;
@@ -94,6 +105,8 @@
   justify-self: center;
 }
 .prev-btn {
+  display: flex;
+  justify-self: center;
   grid-column: 1/2;
   grid-row: 2/3;
 }
