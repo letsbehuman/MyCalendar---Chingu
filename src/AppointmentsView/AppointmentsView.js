@@ -1,24 +1,24 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 import AppContext from '../context/AppContext';
 import { TbCalendarPlus } from 'react-icons/tb';
-import './dayView.scss';
+import './appointmentsView.scss';
 import dayjs from 'dayjs';
 
-const DayView = ({ modalHandle }) => {
+const AppointmentsView = ({ modalHandle }) => {
   const { currentTime, setSelectedEvent, savedEvents } = useContext(AppContext);
 
   const getAppointments = (day) => {
     const currentAppointments = savedEvents.filter(
-      (a) => dayjs(a.day).format('D') == currentTime.day
+      (a) => dayjs(a.day).format('DD/MM/YYYY') == currentTime.fullDate
     );
     return currentAppointments;
   };
 
   const showSelectedEvent = (event) => {
-    console.log('click', event.title);
     modalHandle('update');
     setSelectedEvent(event);
   };
+
   return (
     <div className="dayView-container">
       <h3>{currentTime.weekday}</h3>
@@ -34,7 +34,7 @@ const DayView = ({ modalHandle }) => {
                 <span>{`${event.begins} ${event.title}`}</span>
               </div>
             ))
-          : 'no appointmets'}
+          : 'No appointments'}
       </div>
       <button className="add-appointment" onClick={() => modalHandle('add')}>
         <TbCalendarPlus />
@@ -43,4 +43,4 @@ const DayView = ({ modalHandle }) => {
   );
 };
 
-export default DayView;
+export default AppointmentsView;

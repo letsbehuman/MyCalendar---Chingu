@@ -38,3 +38,14 @@ $color-beige: #dcd7c9;
   padding: 1em;
   border-radius: 1em;
 }
+
+@media screen and (min-width: 900px) {
+  .App {
+    display: grid;
+    grid-template-columns: 60% 40%;
+  }
+  .form-container {
+    max-width: 30em;
+    font-size: 1.3rem;
+  }
+}

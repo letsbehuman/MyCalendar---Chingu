@@ -27,7 +27,6 @@ export function AppContextProvider({ children }) {
   const [addModal, setAddModal] = useState(false);
   const [updateModal, setUpdateModal] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState('');
-  const [appointments, setAppointments] = useState([]);
   const [savedEvents, dispachCalEvent] = useReducer(
     savedEventsReducer,
     [],
@@ -36,7 +35,7 @@ export function AppContextProvider({ children }) {
 
   useEffect(() => {
     localStorage.setItem('saveEvents', JSON.stringify(savedEvents));
-  }, [savedEvents, appointments]);
+  }, [savedEvents]);
 
   const currentTime = {
     fullDate: dayjs(selectedDate).format('DD/MM/YYYY'),

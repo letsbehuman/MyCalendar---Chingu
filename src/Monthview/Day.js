@@ -4,14 +4,17 @@ import './monthView.scss';
 import dayjs from 'dayjs';
 import { useEffect } from 'react';
 
-const Day = ({ day }) => {
+const Day = ({ date }) => {
   const { currentTime, setSelectedDate, savedEvents } = useContext(AppContext);
   const [dayEvents, setDayEvents] = useState([]);
 
   useEffect(() => {
-    const events = savedEvents.filter((e) => dayjs(e.day).format('D') == day);
+    const events = savedEvents.filter(
+      (e) =>
+        dayjs(e.day).format('MM/DD/YYYY') === dayjs(date).format('MM/DD/YYYY')
+    );
     setDayEvents(events);
-  }, [savedEvents, day]);
+  }, [savedEvents, date]);
 
   const selectDay = (e) => {
     const { numMonth, year } = currentTime;
@@ -21,10 +24,14 @@ const Day = ({ day }) => {
 
   return (
     <div
-      className={currentTime.day == day ? 'selected-day card-day' : 'card-day'}
+      className={
+        currentTime.day == dayjs(date).format('D')
+          ? 'selected-day card-day'
+          : 'card-day'
+      }
       onClick={(e) => selectDay(e)}
     >
-      <div className="header">{day}</div>
+      <div className="header">{dayjs(date).format('D')}</div>
       <div className="day-with-date">
         {dayEvents.length ? <div className="appointment">{'-'}</div> : ''}
       </div>

@@ -1,16 +1,15 @@
 import './App.scss';
-import React, { useState, useEffect, useContext } from 'react';
-import DayView from './DayView/DayView';
+import React, { useContext } from 'react';
+import AppointmentsView from './AppointmentsView/AppointmentsView';
 import MonthView from './Monthview/MonthView';
-import dayjs from 'dayjs';
 import AddAppointment from './Modals/AddAppointment';
 import SelectedAppointment from './Modals/SelectedAppointment';
 import AppContext from './context/AppContext';
-import calendarService from './helpers/calendarService';
 
 function App() {
-  const { addModal, setAddModal, updateModal, setUpdateModal, currentTime } =
+  const { addModal, setAddModal, updateModal, setUpdateModal } =
     useContext(AppContext);
+
   const modalHandle = (str) => {
     if (str === 'add') {
       setAddModal(!addModal);
@@ -18,36 +17,25 @@ function App() {
       setUpdateModal(!updateModal);
     } else {
       setAddModal(false);
-
       setUpdateModal(false);
     }
-  };
-  console.log(currentTime);
-  const appointmentHandle = (e) => {
-    console.log(e);
   };
 
   return (
     <div className="App">
       <MonthView />
-      <DayView modalHandle={modalHandle} />
+      <AppointmentsView modalHandle={modalHandle} />
       {addModal && (
         <div className="modal" onClick={modalHandle}>
           <div className="form-container" onClick={(e) => e.stopPropagation()}>
-            <AddAppointment
-              modalHandle={modalHandle}
-              appointmentHandle={appointmentHandle}
-            />
+            <AddAppointment modalHandle={modalHandle} />
           </div>
         </div>
       )}
       {updateModal && (
         <div className="modal" onClick={modalHandle}>
           <div className="form-container" onClick={(e) => e.stopPropagation()}>
-            <SelectedAppointment
-              modalHandle={modalHandle}
-              appointmentHandle={appointmentHandle}
-            />
+            <SelectedAppointment modalHandle={modalHandle} />
           </div>
         </div>
       )}

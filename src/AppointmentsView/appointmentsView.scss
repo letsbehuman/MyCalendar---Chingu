@@ -17,7 +17,17 @@
   min-height: 10vh;
   background-color: rgba($color: $color-brown, $alpha: 0.7);
   box-shadow: inset 0px 10px 1px rgba($color: #000000, $alpha: 0.2);
+  border-radius: 0.5em;
 }
+.appointment-content {
+  display: flex;
+  flex-direction: row;
+  background-color: rgba($color: $color-beige, $alpha: 0.7);
+  cursor: pointer;
+  padding: 0 1em;
+  border-radius: 0.5em;
+}
+
 .add-appointment {
   align-self: center;
   border: none;
@@ -28,9 +38,13 @@
   font-size: 2em;
   cursor: pointer;
 }
-.appointment-content {
-  display: flex;
-  flex-direction: row;
-  background-color: rgba($color: $color-beige, $alpha: 0.7);
-  cursor: pointer;
+@media screen and (min-width: 900px) {
+  .dayView-container {
+    align-self: center;
+    height: 80%;
+    font-size: 1.4rem;
+  }
+  .add-appointment {
+    margin: auto;
+  }
 }

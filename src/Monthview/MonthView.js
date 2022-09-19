@@ -1,11 +1,11 @@
 import dayjs from 'dayjs';
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import AppContext from '../context/AppContext';
 import './monthView.scss';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import Day from './Day';
 
-const MonthView = ({}) => {
+const MonthView = () => {
   const { currentTime, selectedDate, setSelectedDate } = useContext(AppContext);
 
   const displayDays = (date) => {
@@ -53,7 +53,7 @@ const MonthView = ({}) => {
           ))}
         {currMonthDays.map((day, index) => (
           <React.Fragment key={index}>
-            <Day day={day} />
+            <Day date={`${currentTime.numMonth}/${day}/${currentTime.year}`} />
           </React.Fragment>
         ))}
         {nextMonthDays.map((day, index) => (
