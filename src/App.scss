@@ -33,6 +33,8 @@ $color-beige: #dcd7c9;
   width: 100%;
   top: 50%;
   left: 50%;
+  max-width: 35em;
+  max-height: 95%;
   transform: translate(-50%, -50%);
   background-color: $color-beige;
   padding: 1em;
@@ -45,7 +47,7 @@ $color-beige: #dcd7c9;
     grid-template-columns: 60% 40%;
   }
   .form-container {
-    max-width: 30em;
-    font-size: 1.3rem;
+    max-width: 50em;
+    max-height: 95%;
   }
 }

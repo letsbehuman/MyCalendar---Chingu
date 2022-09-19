@@ -28,14 +28,26 @@ form {
 }
 @media screen and (min-width: 900px) {
   form {
+    grid-template-columns: repeat(4, 1fr);
     padding: 1em;
+    .label {
+      grid-column: 1/2;
+    }
+    .input-long {
+      grid-column: 2/5;
+    }
     button {
       font-size: 1.3rem;
       padding: 1em;
+      grid-column: 1/5;
     }
     input,
     label {
       font-size: 1.4rem;
+      width: 100%;
+    }
+    .update-btns {
+      grid-column: 1/5;
     }
   }
 }

@@ -34,7 +34,7 @@ const AppointmentsView = ({ modalHandle }) => {
                 <span>{`${event.begins} ${event.title}`}</span>
               </div>
             ))
-          : 'No appointments'}
+          : 'No ppointments'}
       </div>
       <button className="add-appointment" onClick={() => modalHandle('add')}>
         <TbCalendarPlus />
