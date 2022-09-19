@@ -1,41 +1,28 @@
-import React, { useState, useContext } from 'react';
+import React from 'react';
+import { useContext, useState, useEffect } from 'react';
 import AppContext from '../context/AppContext';
-import './addAppointment.scss';
+import './modals.scss';
 
-const AddAppointment = ({ modalHandle }) => {
-  const { selectedDate, dispachCalEvent, setAppointments } =
-    useContext(AppContext);
+const SelectedAppointment = ({ modalHandle }) => {
+  const { selectedEvent, dispachCalEvent } = useContext(AppContext);
 
-  const [formData, setFormData] = useState([
-    {
-      title: '',
-      startDate: '',
-      endDate: '',
-      begins: '',
-      ends: '',
-      people: '',
-      location: '',
-      description: '',
-    },
-  ]);
+  const [formData, setFormData] = useState({
+    id: selectedEvent ? selectedEvent.id : '',
+    title: selectedEvent ? selectedEvent.title : '',
+    startDate: selectedEvent ? selectedEvent.startDate : '',
+    endDate: selectedEvent ? selectedEvent.endDate : '',
+    begins: selectedEvent ? selectedEvent.begins : '',
+    ends: selectedEvent ? selectedEvent.ends : '',
+    people: selectedEvent ? selectedEvent.people : '',
+    location: selectedEvent ? selectedEvent.location : '',
+    description: selectedEvent ? selectedEvent.description : '',
+  });
 
   const onSubmitHandle = (e) => {
     e.preventDefault();
-    const calendarEvent = {
-      id: Date.now(),
-      title: formData.title,
-      startDate: formData.startDate,
-      endDate: formData.endDate,
-      begins: formData.begins,
-      ends: formData.ends,
-      people: formData.people,
-      location: formData.location,
-      description: formData.description,
-      day: selectedDate.valueOf(),
-    };
-    dispachCalEvent({ type: 'push', payload: calendarEvent });
-    setAppointments((prevAppointments) => [...prevAppointments, calendarEvent]);
-    modalHandle();
+    console.log(formData);
+    dispachCalEvent({ type: 'update', payload: formData });
+    modalHandle('update');
   };
 
   const onChangeHandle = (e) => {
@@ -63,7 +50,9 @@ const AddAppointment = ({ modalHandle }) => {
       <label className="label">Start date:</label>
       <input
         type="text"
-        defaultValue={selectedDate.format('MM/DD/YYYY')}
+        value={formData.startDate}
+        name="startDate"
+        onChange={(e) => onChangeHandle(e)}
         required
       ></input>
       <label className="end-date">End date:</label>
@@ -118,9 +107,20 @@ const AddAppointment = ({ modalHandle }) => {
         onChange={(e) => onChangeHandle(e)}
         className="input-long"
       ></input>
-      <button type="submit">Add Event</button>
+      <div className="update-btns">
+        <button
+          type="button"
+          onClick={() => {
+            dispachCalEvent({ type: 'delete', payload: selectedEvent });
+            modalHandle();
+          }}
+        >
+          Delete
+        </button>
+        <button type="submit">Update</button>
+      </div>
     </form>
   );
 };
 
-export default AddAppointment;
+export default SelectedAppointment;

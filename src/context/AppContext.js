@@ -1,7 +1,6 @@
 import { createContext, useState, useEffect } from 'react';
 import dayjs from 'dayjs';
 import { useReducer } from 'react';
-import { getDefaultNormalizer } from '@testing-library/react';
 
 const AppContext = createContext();
 function savedEventsReducer(state, { type, payload }) {
@@ -25,7 +24,9 @@ function initEvents() {
 
 export function AppContextProvider({ children }) {
   const [selectedDate, setSelectedDate] = useState(dayjs());
-  const [showModal, setShowModal] = useState(false);
+  const [addModal, setAddModal] = useState(false);
+  const [updateModal, setUpdateModal] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState('');
   const [appointments, setAppointments] = useState([]);
   const [savedEvents, dispachCalEvent] = useReducer(
     savedEventsReducer,
@@ -58,12 +59,14 @@ export function AppContextProvider({ children }) {
         currentTime,
         selectedDate,
         setSelectedDate,
-        showModal,
-        setShowModal,
+        addModal,
+        setAddModal,
         savedEvents,
         dispachCalEvent,
-        appointments,
-        setAppointments,
+        selectedEvent,
+        setSelectedEvent,
+        updateModal,
+        setUpdateModal,
       }}
     >
       {children}
