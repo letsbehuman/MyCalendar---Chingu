@@ -1,5 +1,5 @@
 # eCalendar
-[See website] [https://legendary-meringue-e36007.netlify.app/]
+[See website][https://legendary-meringue-e36007.netlify.app/]
 With this App you can add dates and events, as well as delete them or modify them.
 
 Tools that I used:
