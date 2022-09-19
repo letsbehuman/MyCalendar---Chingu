@@ -2,40 +2,30 @@ import React, { useContext } from 'react';
 import AppContext from '../context/AppContext';
 import { TbCalendarPlus } from 'react-icons/tb';
 import './dayView.scss';
+import dayjs from 'dayjs';
 
 const DayView = ({ modalHandle }) => {
-  const { currentTime, dayEvents } = useContext(AppContext);
+  const { currentTime, appointments, setAppointments } = useContext(AppContext);
+
+  const getAppointments = (day) => {
+    const currentAppointments = appointments.filter(
+      (a) => dayjs(a.day).format('D') == currentTime.day
+    );
+    return currentAppointments;
+  };
+
   return (
     <div className="dayView-container">
       <h3>{currentTime.weekday}</h3>
       <h3>{`${currentTime.fullMonth} ${currentTime.day}`}</h3>
       <div className="appointments-container">
-        {/* {!dayEvents.length
-          ? 'No appointments'
-          : dayEvents.map((event, index) => {
-              const {
-                title,
-                startDate,
-                endDate,
-                begins,
-                ends,
-                people,
-                location,
-                description,
-              } = event;
-              return (
-                <div key={index} className="appointment-content">
-                  <span>{begins}</span>
-                  <span>{title}</span>
-                  <span>{startDate}</span>
-                  <span>{endDate}</span>
-                  <span>{ends}</span>
-                  <span>{people}</span>
-                  <span>{location}</span>
-                  <span>{description}</span>
-                </div>
-              );
-            })} */}
+        {getAppointments(currentTime.day).length
+          ? getAppointments(currentTime.day).map((event, index) => (
+              <div key={index} className="appointment-content">
+                <span>{`${event.begins} ${event.title}`}</span>
+              </div>
+            ))
+          : 'no appointmets'}
       </div>
       <button className="add-appointment" onClick={() => modalHandle()}>
         <TbCalendarPlus />

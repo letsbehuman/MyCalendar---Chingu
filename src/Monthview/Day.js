@@ -19,7 +19,6 @@ const Day = ({ day }) => {
     setSelectedDate(dayjs(`${year}-${numMonth}-${day}`));
   };
 
-  console.log(dayEvents);
   return (
     <div
       className={currentTime.day == day ? 'selected-day card-day' : 'card-day'}

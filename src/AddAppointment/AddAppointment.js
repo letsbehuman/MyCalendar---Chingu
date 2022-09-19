@@ -3,7 +3,8 @@ import AppContext from '../context/AppContext';
 import './addAppointment.scss';
 
 const AddAppointment = ({ modalHandle }) => {
-  const { selectedDate, dispachCalEvent } = useContext(AppContext);
+  const { selectedDate, dispachCalEvent, setAppointments } =
+    useContext(AppContext);
 
   const [formData, setFormData] = useState([
     {
@@ -33,6 +34,7 @@ const AddAppointment = ({ modalHandle }) => {
       day: selectedDate.valueOf(),
     };
     dispachCalEvent({ type: 'push', payload: calendarEvent });
+    setAppointments((prevAppointments) => [...prevAppointments, calendarEvent]);
     modalHandle();
   };
 

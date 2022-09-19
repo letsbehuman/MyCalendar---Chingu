@@ -9,6 +9,8 @@ import calendarService from './helpers/calendarService';
 
 function App() {
   const { showModal, setShowModal } = useContext(AppContext);
+  // console.log('refres');
+  useEffect(() => {}, []);
 
   const modalHandle = () => {
     setShowModal(!showModal);
