@@ -20,7 +20,6 @@ const SelectedAppointment = ({ modalHandle }) => {
 
   const onSubmitHandle = (e) => {
     e.preventDefault();
-    console.log(formData);
     dispachCalEvent({ type: 'update', payload: formData });
     modalHandle('update');
   };
