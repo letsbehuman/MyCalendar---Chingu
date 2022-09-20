@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/letsbehuman/MyCalendar---Chingu/static/css/main.64b32fb8.css",
+    "main.js": "/letsbehuman/MyCalendar---Chingu/static/js/main.ca68ef7b.js",
+    "index.html": "/letsbehuman/MyCalendar---Chingu/index.html",
+    "main.64b32fb8.css.map": "/letsbehuman/MyCalendar---Chingu/static/css/main.64b32fb8.css.map",
+    "main.ca68ef7b.js.map": "/letsbehuman/MyCalendar---Chingu/static/js/main.ca68ef7b.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.64b32fb8.css",
+    "static/js/main.ca68ef7b.js"
+  ]
+}
